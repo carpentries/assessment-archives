@@ -276,7 +276,7 @@ read_cache <- function(survey, cache_path) {
 
 write_cache <- function(tbl, survey, cache_path) {
   fn <- get_cache_file_name(survey, cache_path)
-  readr::write_csv(tbl, path = fn)
+  readr::write_csv(tbl, file = fn)
 }
 
 add_to_cache <- function(hash, filename, survey, cache_path) {
