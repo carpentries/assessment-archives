@@ -141,7 +141,8 @@ generate_index <- function(archive_data, output) {
     ~survey_type,     ~name,
     "pre-workshop",  "Pre-workshop Survey",
     "post-workshop", "Post-workshop Survey",
-    "instructor-teaching-online", "Post-workshop Instructor Teaching online"
+    "instructor-teaching-online", "Post-workshop Instructor Teaching online",
+    "long-term", "Long-term Survey"
   ) %>%
     purrr::pmap(function(survey_type, name) {
       generate_archive(
