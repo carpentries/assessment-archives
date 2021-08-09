@@ -141,6 +141,8 @@ generate_index <- function(archive_data, output) {
     ~survey_type,     ~name,
     "pre-workshop",  "Pre-workshop Survey",
     "post-workshop", "Post-workshop Survey",
+    "instructor-training-pre", "Instructor Training Pre-Survey",
+    "instructor-training-post", "Instructor Training Post-Survey",
     "instructor-teaching-online", "Post-workshop Instructor Teaching online",
     "long-term", "Long-term Survey",
     "online-teaching-bonus-pre", "Online Teaching Bonus Module Pre-Survey",
