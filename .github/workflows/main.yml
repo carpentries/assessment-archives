@@ -96,7 +96,7 @@ jobs:
           -e "source('build-website.R')" \
           -e "generate_archive_website()"
       - name: Deploy to ghpages
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/main'
         uses: maxheld83/ghpages@v0.2.1
         env:
            BUILD_DIR: public
