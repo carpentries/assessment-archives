@@ -80,7 +80,7 @@ jobs:
           Rscript \
            -e "source('archive-typeform.R')" \
            -e "cache_content(get_form('cjJ9UP'), 'instructor-training-post')"
-      - name: Commit files to master
+      - name: Commit files to main
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
@@ -97,7 +97,14 @@ jobs:
           -e "generate_archive_website()"
       - name: Deploy to ghpages
         if: github.ref == 'refs/heads/main'
-        uses: maxheld83/ghpages@v0.2.1
-        env:
-           BUILD_DIR: public
-           GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          cd public
+          git init
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add -A .
+          git commit -m '[ci-skip] Deploy to GitHub Pages'
+          git push --force origin gh-pages
+          rm -rf .git
+          cd $GITHUB_WORKSPACE
+          echo 'Content of public pushed to gh-pages'
