@@ -13,7 +13,7 @@ The archive can be browsed at <https://carpentries.github.io/assessment-archives
 
 ### Surveys
 
-The surveys are both storred within the `master` branch and the `gh-pages`branch. Each survey is in a directory with a short name that describes the survey. Within these directories, the latest version occurs twice: once under its short name (the same as the directory) and once with its version number. Older versions only occur once using their version number.
+The surveys are both storred within the `main` branch and the `gh-pages` branch. Each survey is in a directory with a short name that describes the survey. Within these directories, the latest version occurs twice: once under its short name (the same as the directory) and once with its version number. Older versions only occur once using their version number.
 
 The version number is a combination of (1) the date the version was created; (2) the first 6 characters of the SHA256 of the content of the file.
 
