@@ -7,10 +7,9 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     env:
-      RSPM: 'https://packagemanager.rstudio.com/cran/__linux__/bionic/latest'
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      RSPM: 'https://packagemanager.rstudio.com/cran/__linux__/focal/latest'
 
     if: "!contains(github.event.head_commit.message, 'ci-skip')"
     steps:
@@ -104,3 +103,13 @@ jobs:
           git config --local user.name "GitHub Actions"
           git add -A .
           git commit -m '[ci-skip] Deploy to GitHub Pages'
+
+      - name: Ping Healthcheck when successful
+        if: ${{ success() }}
+        run: |
+          curl -fsS --retry 3 ${{ secrets.HEALTHCHECK_URL }}
+
+      - name: Ping Healthcheck when failure
+        if: ${{ failure() }}
+        run: |
+          curl -fsS --retry 3 ${{ secrets.HEALTHCHECK_URL }}/fail
