@@ -99,15 +99,8 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: |
           cd public
-          git init
+          git init --initial-branch=gh-pages
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
           git add -A .
           git commit -m '[ci-skip] Deploy to GitHub Pages'
-      - name: Deploy to gh-pages
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: gh-pages
-          force: true
-          directory: public
