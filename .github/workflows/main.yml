@@ -86,16 +86,19 @@ jobs:
           git config --local user.name "GitHub Action"
           git add *
           git commit -m "[ci-skip] add latest version" || echo "Nothing to commit"
+
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Move files to public folder for deployment
         run: |
           Rscript \
           -e "source('build-website.R')" \
           -e "generate_archive_website()"
-      - name: Deploy to ghpages
+
+      - name: Commit changes
         if: github.ref == 'refs/heads/main'
         run: |
           cd public
@@ -104,7 +107,14 @@ jobs:
           git config --local user.name "GitHub Actions"
           git add -A .
           git commit -m '[ci-skip] Deploy to GitHub Pages'
-          git push origin gh-pages
+
+      - name: Deploy to gh-pages
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          force: true
+          directory: public
 
       - name: Ping Healthcheck when successful
         if: ${{ success() }}
