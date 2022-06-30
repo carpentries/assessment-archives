@@ -93,10 +93,21 @@ build_scale <- function(field) {
 }
 
 
+## Check whether the multiple-choice question has an "other" option
+has_other_option <- function(field) {
+  if (identical(field$type, "multiple_choice") &&
+        field$properties$allow_other_choice) {
+    return("Other (open text)")
+  }
+}
+
 ## Extract possible choices for survey questions
 ## and turns them into an unordered Markdown list
 extract_multiple_choices <- function(field) {
-  choices <- purrr::map_chr(field$properties$choices, "label")
+  choices <- c(
+    purrr::map_chr(field$properties$choices, "label"),
+    has_other_option(field)
+  )
   glue::glue_collapse(glue::glue("- {choices} "), sep = "\n")
 }
 
