@@ -2,6 +2,7 @@ name: deploy-on-push-and-schedule
 
 on:
   push:
+    branches: ['main']
   schedule:
     - cron:  '0 17 * * *'
 
