@@ -37,7 +37,7 @@ jobs:
         env:
           RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
         run: |
-          remotes::install_github('carpentries/vise')
+          remotes::install_github('carpentries/vise', dep = TRUE)
           Sys.setenv("RSPM_ROOT" = "https://packagemanager.posit.co")
           desc <- desc::description$new("${{ github.workspace }}/DESCRIPTION")
           vise::ci_sysreqs(desc, execute = TRUE)
