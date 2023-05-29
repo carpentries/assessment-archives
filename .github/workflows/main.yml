@@ -33,13 +33,14 @@ jobs:
           key: ${{ runner.os }}-r-1-${{ hashFiles('depends.Rds') }}
           restore-keys: ${{ runner.os }}-r-1-
       - name: Install system dependencies
+        shell: Rscript {0}
         env:
           RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
         run: |
-          sudo apt-get -y update
-          Rscript -e "remotes::install_github('r-hub/sysreqs')"
-          sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
-          sudo -s eval "$sysreqs"
+          remotes::install_github('carpentries/vise')
+          Sys.setenv("RSPM_ROOT" = "https://packagemanager.posit.co")
+          desc <- desc::description$new("${{ github.workspace }}/DESCRIPTION")
+          vise::ci_sysreqs(desc, execute = TRUE)
       - name: Install dependencies
         run: |
           Rscript \
