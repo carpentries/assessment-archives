@@ -107,9 +107,10 @@ jobs:
           git init --initial-branch=gh-pages
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
+          git remote add origin "https://github.com/carpentries/assesment-archives.git"
           git add -A .
           git commit -m '[ci-skip] Deploy to GitHub Pages'
-          git push --force origin gh-pages || echo "No changes to push"
+          git push --force origin HEAD:gh-pages || echo "No changes to push"
 
       - name: Ping Healthcheck when successful
         if: ${{ success() }}
