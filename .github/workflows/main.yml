@@ -107,10 +107,12 @@ jobs:
           git init --initial-branch=gh-pages
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
+          # adding the remote so git will recognise us because it thinks we are in a new repo
+          # https://zkamvar.netlify.app/blog/gh-drat/
           git remote add origin https://${{github.actor}}:${{secrets.GITHUB_TOKEN}}@github.com/${{github.repository}}.git
           git add -A .
           git commit -m '[ci-skip] Deploy to GitHub Pages'
-          git push --force origin HEAD:gh-pages || echo "No changes to push"
+          git push --force origin HEAD:gh-pages # this will always push 
 
       - name: Ping Healthcheck when successful
         if: ${{ success() }}
